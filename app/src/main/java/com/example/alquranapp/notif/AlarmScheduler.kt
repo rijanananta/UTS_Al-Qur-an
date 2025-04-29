@@ -17,8 +17,8 @@ object AlarmScheduler {
         )
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 18) // Set jam notifikasi di sini (07:00)
-            set(Calendar.MINUTE, 16)
+            set(Calendar.HOUR_OF_DAY, 10)
+            set(Calendar.MINUTE, 50)
             set(Calendar.SECOND, 0)
         }
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
