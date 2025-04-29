@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -30,10 +31,13 @@ fun DetailSurahScreen(surahNumber: Int) {
     var indoAyat by remember { mutableStateOf<List<Ayah>>(emptyList()) }
     var surahTitle by remember { mutableStateOf("") }
     var surahType by remember { mutableStateOf("") }
+    var surahTranslation by remember { mutableStateOf("") }
+    var ayahCount by remember { mutableStateOf(0) }
     var playingAyatIndex by remember { mutableStateOf<Int?>(null) }
     val scope = rememberCoroutineScope()
     val player = remember { ExoPlayer.Builder(context).build() }
     val listState = rememberLazyListState()
+
     DisposableEffect(player) {
         val listener = object : Player.Listener {
             override fun onPlaybackStateChanged(playbackState: Int) {
@@ -64,6 +68,7 @@ fun DetailSurahScreen(surahNumber: Int) {
             player.release()
         }
     }
+
     LaunchedEffect(Unit) {
         scope.launch {
             try {
@@ -73,26 +78,37 @@ fun DetailSurahScreen(surahNumber: Int) {
                 arabAyat = arab.ayahs
                 indoAyat = indo.ayahs
                 surahTitle = arab.englishName
+                surahTranslation = arab.englishNameTranslation
                 surahType = when (arab.revelationType) {
                     "Meccan" -> "Makkiyah"
                     "Medinan" -> "Madaniyah"
                     else -> "Tidak diketahui"
                 }
+                ayahCount = arab.ayahs.size
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Column {
-                        Text(text = "Surah $surahTitle")
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = surahTitle,
+                            style = MaterialTheme.typography.headlineSmall,
+                            textAlign = TextAlign.Center
+                        )
                         if (surahType.isNotEmpty()) {
                             Text(
-                                text = surahType,
-                                style = MaterialTheme.typography.labelMedium
+                                text = "$surahType • $surahTranslation • $ayahCount Ayat",
+                                style = MaterialTheme.typography.labelMedium,
+                                textAlign = TextAlign.Center
                             )
                         }
                     }

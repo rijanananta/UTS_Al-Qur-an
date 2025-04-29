@@ -12,4 +12,3 @@ data class SurahEditionData(
     val numberOfAyahs: Int,
     val ayahs: List<Ayah>
 )
-git add

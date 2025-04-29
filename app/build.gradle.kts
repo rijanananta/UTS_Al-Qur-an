@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
 }
 android {
     namespace = "com.example.alquranapp"
@@ -36,6 +37,12 @@ android {
 }
 
 dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.android.gms:play-services-auth:21.0.0") // Google Sign-In
+    implementation("androidx.datastore:datastore-preferences:1.0.0") // DataStore
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1") // ViewModel Compose
+    implementation("androidx.navigation:navigation-compose:2.7.0") // Navigation (opsional)
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("androidx.media3:media3-exoplayer:1.2.0")
@@ -60,4 +67,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
 }

@@ -30,7 +30,7 @@ object NotificationHelper {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_icon) // Ganti dengan icon kamu
             .setContentTitle("Waktunya Membaca Al-Qur'an")
-            .setContentText("Yuk lanjutkan bacaanmu hari ini ⭐")
+            .setContentText("Yuk lanjutkan bacaanmu hari ini ☪\uFE0F\n")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         if (ActivityCompat.checkSelfPermission(
                 context,
